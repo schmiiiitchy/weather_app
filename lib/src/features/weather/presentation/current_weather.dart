@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_weather_example_flutter/src/features/weather/application/providers.dart';
-import 'package:open_weather_example_flutter/src/features/weather/presentation/weather_icon_image.dart';
+import 'package:open_weather_example_flutter/src/features/weather/domain/weather/derived/weather_data.dart';
 import 'package:provider/provider.dart';
 
 class CurrentWeather extends StatelessWidget {
@@ -16,7 +16,8 @@ class CurrentWeather extends StatelessWidget {
             children: [
               Text(data.$1, style: Theme.of(context).textTheme.headlineMedium),
               //TODO account for null, errors and loading states
-              CurrentWeatherContents(data: data.$2),
+              //CurrentWeatherContents(data: data.$2),
+              Text('Hello'),
             ],
           );
         });
@@ -39,7 +40,7 @@ class CurrentWeatherContents extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        WeatherIconImage(iconUrl: data.iconUrl, size: 120),
+        //WeatherIconImage(iconUrl: data.iconUrl, size: 120),
         Text(temp, style: textTheme.displayMedium),
         Text(highAndLow, style: textTheme.bodyMedium),
       ],

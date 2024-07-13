@@ -3,6 +3,8 @@ import 'package:open_weather_example_flutter/src/api/api.dart';
 import 'package:open_weather_example_flutter/src/api/api_keys.dart';
 import 'package:open_weather_example_flutter/src/features/weather/data/weather_repository.dart';
 import 'package:http/http.dart' as http;
+import 'package:open_weather_example_flutter/src/features/weather/domain/forecast/derived/forecast_data.dart';
+import 'package:open_weather_example_flutter/src/features/weather/domain/weather/derived/weather_data.dart';
 
 class WeatherProvider extends ChangeNotifier {
   HttpWeatherRepository repository = HttpWeatherRepository(

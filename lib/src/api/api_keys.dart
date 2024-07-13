@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 
 /// To get an API key, sign up here:
@@ -6,6 +7,7 @@ import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
-void setupInjection() {
-  //TODO setup injection using 'api_key' instance name. Refer to https://pub.dev/packages/get_it for documentation
-}
+void setupInjection() => sl.registerSingleton<String>(
+      dotenv.env['apiKey']!,
+      instanceName: 'api_key',
+    );
