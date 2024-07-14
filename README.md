@@ -16,3 +16,9 @@ This application uses Provider for state management and an http handler has been
 
 #Bonus:
 Swap from celsius to fahrenheit
+
+### Results:
+
+![alt text](.github/images/web.png "Web screenshot")
+![alt text](.github/images/android.png "Android screenshot")
+![alt text](.github/images/iOS.png "iOS screenshot")

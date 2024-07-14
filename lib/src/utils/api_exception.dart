@@ -1,7 +1,9 @@
-sealed class APIException implements Exception {
-  APIException(this.message);
+import 'dart:io';
 
+sealed class APIException implements Exception {
   final String message;
+
+  APIException(this.message);
 }
 
 class InvalidApiKeyException extends APIException {
@@ -14,6 +16,10 @@ class NoInternetConnectionException extends APIException {
 
 class CityNotFoundException extends APIException {
   CityNotFoundException() : super('City not found');
+}
+
+class ServerErrorException extends APIException {
+  ServerErrorException() : super('Internal server error');
 }
 
 class UnknownException implements Exception {

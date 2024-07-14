@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:open_weather_example_flutter/src/api/api_keys.dart';
 import 'package:open_weather_example_flutter/src/features/weather/application/providers.dart';
 import 'package:open_weather_example_flutter/src/features/weather/presentation/weather_page.dart';
+import 'package:open_weather_example_flutter/src/app_setup.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  setupInjection();
+void main() async {
+  await setupConfig();
+  setupAPIKeyInjection();
+  setupServiceInjection();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class MyApp extends StatelessWidget {
       )
     ]);
     return MaterialApp(
-      title: 'Flutter Weather App',
+      title: 'KP Weather App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
@@ -41,10 +45,13 @@ class MyApp extends StatelessWidget {
       ),
       home: MultiProvider(
           providers: [
-            ChangeNotifierProvider<WeatherProvider>(create: (_) => WeatherProvider(), lazy: false),
+            ChangeNotifierProvider<WeatherProvider>(
+              create: (_) => WeatherProvider()..getWeather(city: 'Pretoria'),
+              lazy: false,
+            ),
           ],
           builder: (context, _) {
-            return const WeatherPage(city: 'London');
+            return const WeatherPage();
           }),
     );
   }
