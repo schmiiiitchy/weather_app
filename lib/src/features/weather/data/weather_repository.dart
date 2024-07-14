@@ -16,12 +16,12 @@ class HttpWeatherRepository {
     required this.client,
   });
 
-  Future<Forecast> getForecast({required String city}) => _getData(
+  Future<Forecast> getCityForecast(String city) => _getData(
         uri: api.forecast(city),
         builder: (data) => Forecast.fromJson(data),
       );
 
-  Future<Weather> getWeather({required String city}) => _getData(
+  Future<Weather> getCityWeather(String city) => _getData(
         uri: api.weather(city),
         builder: (data) => Weather.fromJson(data),
       );

@@ -18,9 +18,10 @@ class ForecastedWeather extends StatelessWidget {
       builder: (context, weatherProvider, _) {
         if (weatherProvider.isLoading) {
           return const LoadingIndicator(size: 60);
-        } else if (weatherProvider.errorMessage != null) {
-          return Text('Error: ${weatherProvider.errorMessage}');
-        } else if (weatherProvider.forecastedWeatherProvider == null) {
+        } else if (weatherProvider.forecastWeatherErrorMessage != null) {
+          return Text('Error: ${weatherProvider.forecastWeatherErrorMessage}');
+        } else if (weatherProvider.forecastedWeatherProvider == null ||
+            weatherProvider.forecastedWeatherProvider!.list.isEmpty) {
           return const Text('No data available');
         } else {
           return WeatherRow(
@@ -44,9 +45,8 @@ class WeatherRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: weatherDataItems
-          .map((data) => WeatherItem(data: data))
-          .toList(),
+      children:
+          weatherDataItems.map((data) => WeatherItem(data: data)).toList(),
     );
   }
 }

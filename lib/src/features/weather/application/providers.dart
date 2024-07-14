@@ -19,40 +19,51 @@ class WeatherProvider extends ChangeNotifier {
 
   String city = 'Pretoria';
   bool isLoading = false;
-  String? errorMessage;
+  String? currentWeatherErrorMessage;
+  String? forecastWeatherErrorMessage;
 
   Future<void> getWeather({String? city}) async {
-    try {
-      _notifyLoading();
+    _notifyLoading();
 
-      if (city?.isNotEmpty ?? false) {
-        this.city = city!;
-      }
-
-      await Future.wait([
-        getWeatherData(),
-        getForecastData(),
-      ]);
-    } catch (error) {
-      _handleError(error);
-    } finally {
-      _notifyStoppedLoading();
+    if (city?.isNotEmpty ?? false) {
+      this.city = city!;
     }
+
+    await Future.wait([
+      getWeatherData(),
+      getForecastData(),
+    ]);
+
+    _notifyStoppedLoading();
   }
 
   Future<void> getWeatherData() async {
-    final weather = await repository.getWeather(city: city);
-    currentWeatherProvider = WeatherData.from(weather);
+    try {
+      final weather = await repository.getCityWeather(city);
+      currentWeatherProvider = WeatherData.from(weather);
+      currentWeatherErrorMessage = null;
+    } catch (error) {
+      currentWeatherErrorMessage = sl<GeneralHelper>().getAPIExceptionMessage(
+        error,
+      );
+    }
   }
 
   Future<void> getForecastData() async {
-    final forecast = await repository.getForecast(city: city);
-    forecastedWeatherProvider = ForecastData.from(forecast).byDay();
+    try {
+      final forecast = await repository.getCityForecast(city);
+      forecastedWeatherProvider = ForecastData.from(forecast).byDay();
+      forecastWeatherErrorMessage = null;
+    } catch (error) {
+      forecastWeatherErrorMessage = sl<GeneralHelper>().getAPIExceptionMessage(
+        error,
+      );
+    }
   }
 
   void _notifyLoading() {
     isLoading = true;
-    errorMessage = null;
+    currentWeatherErrorMessage = null;
     notifyListeners();
   }
 
@@ -60,7 +71,4 @@ class WeatherProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
-
-  void _handleError(Object error) =>
-      errorMessage = sl<GeneralHelper>().getAPIExceptionMessage(error);
 }

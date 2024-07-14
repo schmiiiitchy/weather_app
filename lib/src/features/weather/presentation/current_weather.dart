@@ -17,8 +17,8 @@ class CurrentWeather extends StatelessWidget {
       builder: (context, weatherProvider, _) {
         if (weatherProvider.isLoading) {
           return const LoadingIndicator(size: 60);
-        } else if (weatherProvider.errorMessage != null) {
-          return Text('Error: ${weatherProvider.errorMessage}');
+        } else if (weatherProvider.currentWeatherErrorMessage != null) {
+          return Text('Error: ${weatherProvider.currentWeatherErrorMessage}');
         } else if (weatherProvider.currentWeatherProvider == null) {
           return const Text('No data available');
         } else {
