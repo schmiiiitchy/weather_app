@@ -1,11 +1,11 @@
 /// Uri builder class for the OpenWeatherMap API
 class OpenWeatherMapAPI {
-  OpenWeatherMapAPI(this.apiKey);
-
   final String apiKey;
 
   static const String _apiBaseUrl = "api.openweathermap.org";
   static const String _apiPath = "/data/2.5/";
+
+  OpenWeatherMapAPI(this.apiKey);
 
   Uri weather(String city) => _buildUri(
         endpoint: "weather",

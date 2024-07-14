@@ -1,0 +1,1 @@
+const apiKeyInstanceName = 'api_key';
